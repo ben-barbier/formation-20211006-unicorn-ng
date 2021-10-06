@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PdfComponent } from './pdf.component';
 
 describe('PdfComponent', () => {
@@ -8,9 +7,8 @@ describe('PdfComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PdfComponent ]
-    })
-    .compileComponents();
+      declarations: [PdfComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

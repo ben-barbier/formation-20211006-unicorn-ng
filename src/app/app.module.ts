@@ -11,11 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
-import { UnicornComponent } from './pages/unicorn/unicorn.component';
-import { UnicornsListComponent } from './pages/unicorns-list/unicorns-list.component';
 
 @NgModule({
-  declarations: [AppComponent, UnicornsListComponent, UnicornComponent, NavComponent],
+  declarations: [AppComponent, NavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
