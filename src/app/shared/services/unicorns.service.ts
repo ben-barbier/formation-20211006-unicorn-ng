@@ -13,4 +13,8 @@ export class UnicornsService {
   public getAll(): Observable<Unicorn[]> {
     return this._http.get<Unicorn[]>(`${environment.apiUrl}/unicorns`);
   }
+
+  public get(id: number): Observable<Unicorn> {
+    return this._http.get<Unicorn>(`${environment.apiUrl}/unicorns/${id}`);
+  }
 }

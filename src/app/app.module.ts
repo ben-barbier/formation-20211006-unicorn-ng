@@ -4,9 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UnicornsListComponent } from './pages/unicorns-list/unicorns-list.component';
+import { UnicornComponent } from './pages/unicorn/unicorn.component';
 
 @NgModule({
-  declarations: [AppComponent, UnicornsListComponent],
+  declarations: [AppComponent, UnicornsListComponent, UnicornComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
