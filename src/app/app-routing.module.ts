@@ -7,6 +7,7 @@ import { EvenGuard } from './shared/guards/even.guard';
 const routes: Routes = [
   { path: '', component: UnicornsListComponent },
   { path: 'unicorn/:id', component: UnicornComponent, canActivate: [EvenGuard] },
+  { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule) },
   { path: '**', redirectTo: '' },
 ];
 
