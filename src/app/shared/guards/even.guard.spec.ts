@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { EvenGuard } from './even.guard';
 
 describe('EvenGuard', () => {
