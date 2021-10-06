@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: UnicornsListComponent },
   { path: 'unicorn/:id', component: UnicornComponent, canActivate: [EvenGuard] },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule) },
+  { path: 'pdf', loadChildren: () => import('./pages/pdf/pdf.module').then((m) => m.PdfModule) },
   { path: '**', redirectTo: '' },
 ];
 
