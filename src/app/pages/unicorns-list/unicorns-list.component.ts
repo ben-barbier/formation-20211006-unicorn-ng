@@ -13,4 +13,10 @@ export class UnicornsListComponent {
   constructor(private readonly _unicornsService: UnicornsService) {
     this._unicornsService.getAllWithCapacitiesLabels2().subscribe((unicorns) => (this.unicorns = unicorns));
   }
+
+  public deleteUnicorn(unicorn: Unicorn): void {
+    this._unicornsService.delete(unicorn).subscribe(() => {
+      this.unicorns = this.unicorns.filter((u) => u.id !== unicorn.id);
+    });
+  }
 }
