@@ -22,6 +22,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>unicorn-ng</span>
+      <span class="spacer"></span>
+      <mat-icon [matBadge]="cart.length" matBadgeColor="accent">favorite</mat-icon>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

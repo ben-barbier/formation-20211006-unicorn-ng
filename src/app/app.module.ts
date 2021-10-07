@@ -1,6 +1,7 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -25,6 +26,7 @@ import { NavComponent } from './layout/nav/nav.component';
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
