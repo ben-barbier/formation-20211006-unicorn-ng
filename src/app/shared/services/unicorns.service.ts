@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { concatAll, filter, map, mergeMap, toArray } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Unicorn } from '../models/unicorn.model';
+import { CapacitiesService } from './capacities.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnicornsService {
-  constructor(private readonly _http: HttpClient) {}
+  constructor(private readonly _http: HttpClient, private readonly capacitiesService: CapacitiesService) {}
 
   public getAll(): Observable<Unicorn[]> {
     return this._http.get<Unicorn[]>(`${environment.apiUrl}/unicorns`);
@@ -16,5 +18,29 @@ export class UnicornsService {
 
   public get(id: number): Observable<Unicorn> {
     return this._http.get<Unicorn>(`${environment.apiUrl}/unicorns/${id}`);
+  }
+
+  public getMoreFiveYears(): Observable<Unicorn[]> {
+    return this.getAll().pipe(
+      concatAll(),
+      map((unicorn) => ({ ...unicorn, weight: unicorn.weight + 5 })),
+      filter((unicorn) => unicorn.birthyear < new Date().getFullYear() - 5),
+      toArray()
+    );
+  }
+
+  public getAllWithCapacitiesLabels(): Observable<Unicorn[]> {
+    return this.getAll().pipe(
+      concatAll(),
+      mergeMap((unicorn) =>
+        from(unicorn.capacities).pipe(
+          mergeMap((capacityId) => this.capacitiesService.get(capacityId)),
+          map((capacity) => capacity.label),
+          toArray(),
+          map((capacitiesLabels) => ({ ...unicorn, capacitiesLabels }))
+        )
+      ),
+      toArray()
+    );
   }
 }
