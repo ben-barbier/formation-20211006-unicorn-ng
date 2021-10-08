@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
+import { AppStoreModule } from './store/app-store.module';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -37,6 +38,7 @@ import { NavComponent } from './layout/nav/nav.component';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    AppStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

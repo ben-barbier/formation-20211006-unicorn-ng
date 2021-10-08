@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { Unicorn } from '../../shared/models/unicorn.model';
-import { UnicornsService } from '../../shared/services/unicorns.service';
+import { UnicornsDispatchers } from '../../store/dispatchers/unicorns.dispatchers';
+import { UnicornsSelectors } from '../../store/selectors/unicorns.selectors';
 
 @Component({
   selector: 'app-unicorn',
@@ -10,11 +12,25 @@ import { UnicornsService } from '../../shared/services/unicorns.service';
   styleUrls: ['./unicorn.component.scss'],
 })
 export class UnicornComponent {
-  public unicorn: Unicorn | undefined;
+  public unicorn$: Observable<Unicorn | undefined>;
 
-  constructor(private readonly _unicornsService: UnicornsService, private readonly _activatedRoute: ActivatedRoute) {
-    this._activatedRoute.params // TODO: fermer le tuyau
-      .pipe(switchMap((params) => this._unicornsService.get(params.id)))
-      .subscribe((unicorn) => (this.unicorn = unicorn));
+  constructor(
+    private readonly _unicornsSelectors: UnicornsSelectors,
+    private readonly _unicornsDispatchers: UnicornsDispatchers,
+    private readonly _activatedRoute: ActivatedRoute
+  ) {
+    this.unicorn$ = this._activatedRoute.params.pipe(
+      tap((e) => {
+        debugger;
+      }),
+      tap((params) => this._unicornsDispatchers.getUnicorn(+params.id)),
+      tap((e) => {
+        debugger;
+      }),
+      switchMap((params) => this._unicornsSelectors.unicorn$(+params.id)),
+      tap((e) => {
+        debugger;
+      })
+    );
   }
 }

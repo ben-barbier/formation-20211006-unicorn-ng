@@ -1,5 +1,5 @@
 <app-unicorn-card
-  *ngFor="let unicorn of unicorns; trackBy: trackById"
+  *ngFor="let unicorn of unicorns$ | async; trackBy: trackById"
   [unicorn]="unicorn"
   (deleted)="deleteUnicorn($event)"
 ></app-unicorn-card>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Unicorn } from '../../shared/models/unicorn.model';
-import { UnicornsService } from '../../shared/services/unicorns.service';
+import { UnicornsDispatchers } from '../../store/dispatchers/unicorns.dispatchers';
+import { UnicornsSelectors } from '../../store/selectors/unicorns.selectors';
 
 @Component({
   selector: 'app-unicorns-list',
@@ -8,17 +9,14 @@ import { UnicornsService } from '../../shared/services/unicorns.service';
   styleUrls: ['./unicorns-list.component.scss'],
 })
 export class UnicornsListComponent {
-  public unicorns: Unicorn[] = [];
-
+  public unicorns$ = this._unicornsSelectors.unicorns$;
   public trackById = (index: number, unicorn: Unicorn) => unicorn.id;
 
-  constructor(private readonly _unicornsService: UnicornsService) {
-    this._unicornsService.getAllWithCapacitiesLabels2().subscribe((unicorns) => (this.unicorns = unicorns));
+  constructor(private readonly _unicornsSelectors: UnicornsSelectors, private readonly _unicornsDispatchers: UnicornsDispatchers) {
+    this._unicornsDispatchers.getUnicorns();
   }
 
   public deleteUnicorn(unicorn: Unicorn): void {
-    this._unicornsService.delete(unicorn).subscribe(() => {
-      this.unicorns = this.unicorns.filter((u) => u.id !== unicorn.id);
-    });
+    this._unicornsDispatchers.deleteUnicorn(unicorn);
   }
 }

@@ -17,9 +17,13 @@
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "prettier"
+        "prettier",
+        "plugin:ngrx/recommended"
       ],
-      "plugins": ["prettier"],
+      "plugins": [
+        "prettier",
+        "ngrx"
+      ],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -48,7 +52,9 @@
         "plugin:@angular-eslint/template/recommended",
         "prettier"
       ],
-      "plugins": ["prettier"],
+      "plugins": [
+        "prettier"
+      ],
       "rules": {
         "prettier/prettier": "error"
       }
