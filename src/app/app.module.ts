@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
 import { AppStoreModule } from './store/app-store.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -39,6 +40,7 @@ import { AppStoreModule } from './store/app-store.module';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     AppStoreModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
