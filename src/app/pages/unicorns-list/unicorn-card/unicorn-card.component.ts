@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Unicorn } from '../../../shared/models/unicorn.model';
-import { CartService } from '../../../shared/services/cart.service';
+import { CartDispatchers } from '../../../store/dispatchers/cart.dispatchers';
 import { UnicornsDispatchers } from '../../../store/dispatchers/unicorns.dispatchers';
+import { CartSelectors } from '../../../store/selectors/cart.selectors';
 import { EditUnicornComponent } from './edit-unicorn/edit-unicorn.component';
 
 @Component({
@@ -12,24 +13,27 @@ import { EditUnicornComponent } from './edit-unicorn/edit-unicorn.component';
   templateUrl: './unicorn-card.component.html',
   styleUrls: ['./unicorn-card.component.scss'],
 })
-export class UnicornCardComponent {
-  @Input() public unicorn: Unicorn | undefined;
+export class UnicornCardComponent implements OnInit {
+  @Input() public unicorn!: Unicorn;
   @Output() public deleted = new EventEmitter<Unicorn>();
 
+  public isInCart$: Observable<boolean> | undefined;
+
   constructor(
-    private readonly _cartService: CartService,
+    // private readonly _cartService: CartService,
     private readonly _dialog: MatDialog,
-    private readonly _unicornsDispatchers: UnicornsDispatchers
+    private readonly _unicornsDispatchers: UnicornsDispatchers,
+    private readonly _cartDispatchers: CartDispatchers,
+    private readonly _cartSelectors: CartSelectors
   ) {}
 
-  public isInCart$: Observable<boolean> = this._cartService.cart$.pipe(map((cart) => cart.some((u) => u.id === this.unicorn?.id)));
-
   public toggleToCart(unicorn: Unicorn): void {
-    this._cartService.toggleToCart(unicorn);
+    // this._cartService.toggleToCart(unicorn);
+    this._cartDispatchers.toggleToCart(unicorn);
   }
 
   public deleteUnicorn(unicorn: Unicorn): void {
-    this.deleted.emit(unicorn);
+    this.deleted.emit(unicorn); // TODO !
   }
 
   public openEditDialog(): void {
@@ -38,5 +42,10 @@ export class UnicornCardComponent {
       .afterClosed()
       .pipe(filter((unicorn) => !!unicorn))
       .subscribe((unicorn: Unicorn) => this._unicornsDispatchers.updateUnicorn(unicorn));
+  }
+
+  ngOnInit(): void {
+    this.isInCart$ = this._cartSelectors.isInCart$(this.unicorn);
+    // .pipe(map((cart) => cart.some((u) => u.id === this.unicorn?.id)));
   }
 }
