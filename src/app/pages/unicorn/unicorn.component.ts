@@ -20,17 +20,8 @@ export class UnicornComponent {
     private readonly _activatedRoute: ActivatedRoute
   ) {
     this.unicorn$ = this._activatedRoute.params.pipe(
-      tap((e) => {
-        debugger;
-      }),
       tap((params) => this._unicornsDispatchers.getUnicorn(+params.id)),
-      tap((e) => {
-        debugger;
-      }),
-      switchMap((params) => this._unicornsSelectors.unicorn$(+params.id)),
-      tap((e) => {
-        debugger;
-      })
+      switchMap((params) => this._unicornsSelectors.unicorn$(+params.id))
     );
   }
 }

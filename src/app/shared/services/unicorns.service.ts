@@ -21,6 +21,12 @@ export class UnicornsService {
     return this._http.get<Unicorn>(`${environment.apiUrl}/unicorns/${id}`);
   }
 
+  public update(unicorn: Unicorn): Observable<Unicorn> {
+    const unicornToUpdate = { ...unicorn };
+    delete unicornToUpdate.capacitiesLabels;
+    return this._http.put<Unicorn>(`${environment.apiUrl}/unicorns/${unicorn.id}`, unicornToUpdate);
+  }
+
   public getMoreFiveYears(): Observable<Unicorn[]> {
     return this.getAll().pipe(
       concatAll(),

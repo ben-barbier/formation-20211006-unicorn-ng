@@ -10,7 +10,6 @@ export const unicornsReducer = createReducer(
   on(updateUnicornSuccess, (state, { unicorn }) => state.map((u) => (u.id === unicorn.id ? unicorn : u))),
   on(deleteUnicornSuccess, (state, { unicorn }) => state.filter((u) => u.id !== unicorn.id)),
   on(getUnicornSuccess, (state, { unicorn }) => {
-    debugger;
     const unicornIsPresent = state.some((u) => u.id === unicorn.id);
     if (unicornIsPresent) {
       return state.map((u) => (u.id === unicorn.id ? unicorn : u));
