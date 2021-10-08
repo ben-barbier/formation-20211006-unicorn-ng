@@ -23,6 +23,7 @@
     "@angular/material": "^12.2.8",
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
+    "@angular/platform-server": "~12.2.0",
     "@angular/router": "~12.2.0",
     "pdfmake": "^0.2.2",
     "rxjs": "~6.6.0",

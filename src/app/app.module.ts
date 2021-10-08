@@ -12,11 +12,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -27,6 +28,7 @@ import { NavComponent } from './layout/nav/nav.component';
     MatSidenavModule,
     MatListModule,
     MatBadgeModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

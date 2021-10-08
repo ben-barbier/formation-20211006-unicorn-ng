@@ -10,6 +10,8 @@ import { UnicornsService } from '../../shared/services/unicorns.service';
 export class UnicornsListComponent {
   public unicorns: Unicorn[] = [];
 
+  public trackById = (index: number, unicorn: Unicorn) => unicorn.id;
+
   constructor(private readonly _unicornsService: UnicornsService) {
     this._unicornsService.getAllWithCapacitiesLabels2().subscribe((unicorns) => (this.unicorns = unicorns));
   }

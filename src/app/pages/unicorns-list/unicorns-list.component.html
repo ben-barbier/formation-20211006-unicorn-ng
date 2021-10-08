@@ -1,1 +1,5 @@
-<app-unicorn-card *ngFor="let unicorn of unicorns" [unicorn]="unicorn" (deleted)="deleteUnicorn($event)"></app-unicorn-card>
+<app-unicorn-card
+  *ngFor="let unicorn of unicorns; trackBy: trackById"
+  [unicorn]="unicorn"
+  (deleted)="deleteUnicorn($event)"
+></app-unicorn-card>
