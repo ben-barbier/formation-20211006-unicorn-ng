@@ -5,12 +5,13 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { UnicornsEffects } from './effects/unicorns.effects';
-import { reducers } from './reducers';
+import { metaReducers, reducers } from './reducers';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers, {
+      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
